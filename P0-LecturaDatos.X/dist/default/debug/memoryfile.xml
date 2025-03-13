@@ -10,9 +10,9 @@
     </memory>
     <memory name="program">
       <units>bytes</units>
-      <length>48768</length>
-      <used>381</used>
-      <free>48387</free>
+      <length>24192</length>
+      <used>384</used>
+      <free>23808</free>
     </memory>
   </executable>
 </project>

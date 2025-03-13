@@ -1,20 +1,20 @@
 
         .equ __30F4013, 1
-        .include "p30F4013.inc"
+        .include "p30F3013.inc"
         config __FOSC, CSW_FSCM_OFF & FRC   
         config __FWDT, WDT_OFF 
         config __FBORPOR, PBOR_ON & BORV27 & PWRT_16 & MCLR_EN
 ;..............................................................................
-;SE DESACTIVA EL CÓDIGO DE PROTECCIÓN
+;SE DESACTIVA EL C?DIGO DE PROTECCI?N
 ;..............................................................................
    	config __FGS, CODE_PROT_OFF & GWRP_OFF      
         .global _wreg_init     
 ;..............................................................................
-;ETIQUETA DE LA PRIMER LINEA DE CÓDIGO
+;ETIQUETA DE LA PRIMER LINEA DE C?DIGO
 ;..............................................................................
         .global __reset          
 ;..............................................................................
-;DECLARACIÓN DE LA ISR DEL TIMER 1 COMO GLOBAL
+;DECLARACI?N DE LA ISR DEL TIMER 1 COMO GLOBAL
 ;..............................................................................
         .global __T1Interrupt    
 
@@ -57,6 +57,12 @@ INI_PERIFERICOS:
 	SETM	TRISD	    ;TRISD = 0XFFFF
 	NOP
 	
+	CLR	PORTC	    ;PORTD = 0
+	NOP
+	CLR	LATC	    ;LATD = 0
+	NOP
+	SETM	TRISC	    ;TRISD = 0XFFFF
+	NOP
 
 	CLR	PORTB	    ;PORTB = 0
 	NOP
@@ -64,8 +70,7 @@ INI_PERIFERICOS:
 	NOP
 	CLR	TRISB	    ;TRISB = 0
 	NOP
-	SETM	ADPCFG	    ;ADPCFG = 0XFFFF
-			    ;SE DESHABILITA EL ADC
+	SETM	ADPCFG
 	
         RETURN
 
@@ -95,10 +100,3 @@ __T1Interrupt:
 
 
 .END                               ;TERMINACION DEL CODIGO DE PROGRAMA EN ESTE ARCHIVO
-
-
-
-
-
-
-

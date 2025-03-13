@@ -4,14 +4,14 @@
 ; *	BROWN OUT RESET, POWER ON RESET Y CODIGO DE PROTECCION
 ; * BLOQUE 2. EQUIVALENCIAS Y DECLARACIONES GLOBALES
 ; * BLOQUE 3. ESPACIOS DE MEMORIA: PROGRAMA, DATOS X, DATOS Y, DATOS NEAR
-; * BLOQUE 4. CÓDIGO DE APLICACIÓN
+; * BLOQUE 4. C?DIGO DE APLICACI?N
 ; * @device: DSPIC30F4013
 ; * @oscilLator: FRC, 7.3728MHz
 ; */
         .equ __30F4013, 1
-        .include "p30F4013.inc"
+        .include "p30F3013.inc"
 ;******************************************************************************
-; BITS DE CONFIGURACIÓN
+; BITS DE CONFIGURACI?N
 ;******************************************************************************
 ;..............................................................................
 ;SE DESACTIVA EL CLOCK SWITCHING Y EL FAIL-SAFE CLOCK MONITOR (FSCM) Y SE 
@@ -29,22 +29,22 @@
 ;SE ACTIVA EL POWER ON RESET (POR), BROWN OUT RESET (BOR), POWER UP TIMER (PWRT)
 ;Y EL MASTER CLEAR (MCLR)
 ;POR: AL MOMENTO DE ALIMENTAR EL DSPIC OCURRE UN RESET CUANDO EL VOLTAJE DE 
-;ALIMENTACIÓN ALCANZA UN VOLTAJE DE UMBRAL (VPOR), EL CUAL ES 1.85V
-;BOR: ESTE MODULO GENERA UN RESET CUANDO EL VOLTAJE DE ALIMENTACIÓN DECAE
+;ALIMENTACI?N ALCANZA UN VOLTAJE DE UMBRAL (VPOR), EL CUAL ES 1.85V
+;BOR: ESTE MODULO GENERA UN RESET CUANDO EL VOLTAJE DE ALIMENTACI?N DECAE
 ;POR DEBAJO DE UN CIERTO UMBRAL ESTABLECIDO (2.7V) 
 ;PWRT: MANTIENE AL DSPIC EN RESET POR UN CIERTO TIEMPO ESTABLECIDO, ESTO AYUDA
-;A ASEGURAR QUE EL VOLTAJE DE ALIMENTACIÓN SE HA ESTABILIZADO (16ms) 
+;A ASEGURAR QUE EL VOLTAJE DE ALIMENTACI?N SE HA ESTABILIZADO (16ms) 
 ;..............................................................................
         config __FBORPOR, PBOR_ON & BORV27 & PWRT_16 & MCLR_EN
 ;..............................................................................
-;SE DESACTIVA EL CÓDIGO DE PROTECCIÓN
+;SE DESACTIVA EL C?DIGO DE PROTECCI?N
 ;..............................................................................
    	config __FGS, CODE_PROT_OFF & GWRP_OFF      
 
 ;******************************************************************************
-; SECCIÓN DE DECLARACIÓN DE CONSTANTES CON LA DIRECTIVA .EQU (= DEFINE EN C)
+; SECCI?N DE DECLARACI?N DE CONSTANTES CON LA DIRECTIVA .EQU (= DEFINE EN C)
 ;******************************************************************************
-        .equ MUESTRAS, 64         ;NÚMERO DE MUESTRAS
+        .equ MUESTRAS, 64         ;N?MERO DE MUESTRAS
 	.equ LH, 0x76
 	.equ LO, 0x3F
 	.equ LL, 0x38
@@ -54,17 +54,17 @@
 ; DECLARACIONES GLOBALES
 ;******************************************************************************
 ;..............................................................................
-;PROPORCIONA ALCANCE GLOBAL A LA FUNCIÓN _wreg_init, ESTO PERMITE LLAMAR A LA 
-;FUNCIÓN DESDE UN OTRO PROGRAMA EN ENSAMBLADOR O EN C COLOCANDO LA DECLARACIÓN
+;PROPORCIONA ALCANCE GLOBAL A LA FUNCI?N _wreg_init, ESTO PERMITE LLAMAR A LA 
+;FUNCI?N DESDE UN OTRO PROGRAMA EN ENSAMBLADOR O EN C COLOCANDO LA DECLARACI?N
 ;"EXTERN"
 ;..............................................................................
         .global _wreg_init     
 ;..............................................................................
-;ETIQUETA DE LA PRIMER LINEA DE CÓDIGO
+;ETIQUETA DE LA PRIMER LINEA DE C?DIGO
 ;..............................................................................
         .global __reset          
 ;..............................................................................
-;DECLARACIÓN DE LA ISR DEL TIMER 1 COMO GLOBAL
+;DECLARACI?N DE LA ISR DEL TIMER 1 COMO GLOBAL
 ;..............................................................................
         .global __T1Interrupt    
 
@@ -126,9 +126,9 @@ __reset:
                                   	;OPCIONALMENTE USAR RCALL EN LUGAR DE CALL
         CALL    INI_PERIFERICOS
 CICLO:
-	MOV	PORTD ,	    W0
+	MOV	PORTF ,	    W0
 	NOP
-	;LSR	W0,	    #2,	    W0
+	LSR	W0,	    #2,	    W0
 	AND	#0x0F,    W0
 	MOV	W0,	    PORTB
 	NOP
@@ -189,9 +189,3 @@ __T1Interrupt:
 
 
 .END                               ;TERMINACION DEL CODIGO DE PROGRAMA EN ESTE ARCHIVO
-
-
-
-
-
-

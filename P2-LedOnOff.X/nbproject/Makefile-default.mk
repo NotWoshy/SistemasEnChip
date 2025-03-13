@@ -84,8 +84,8 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/P2-LedOnOff.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=30F4013
-MP_LINKER_FILE_OPTION=,--script=p30F4013.gld
+MP_PROCESSOR_OPTION=30F3013
+MP_LINKER_FILE_OPTION=,--script=p30F3013.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)

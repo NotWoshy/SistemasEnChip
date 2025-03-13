@@ -9,7 +9,7 @@
 ; * @oscilLator: FRC, 7.3728MHz
 ; */
         .equ __30F4013, 1
-        .include "p30F4013.inc"
+        .include "p30F3013.inc"
 ;******************************************************************************
 ; BITS DE CONFIGURACIÓN
 ;******************************************************************************
@@ -127,7 +127,7 @@ __reset:
         CALL    INI_PERIFERICOS
 	CLR	W0
 CICLO:
-	BTSC	PORTD,	#0
+	BTSC	PORTC,	#14
 	GOTO	CICLO
 	
 	MOV	#0,	W0

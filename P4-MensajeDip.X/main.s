@@ -9,7 +9,7 @@
 ; * @oscilLator: FRC, 7.3728MHz
 ; */
         .equ __30F4013, 1
-        .include "p30F4013.inc"
+        .include "p30F3013.inc"
 ;******************************************************************************
 ; BITS DE CONFIGURACIÓN
 ;******************************************************************************
@@ -128,28 +128,24 @@ __reset:
 	CLR	W0
 CICLO:
 	;USAR CONTADOR PAEA QUE LETRAS SE DESPLEGUEN SOLITAS
-	MOV	PORTD,	W0
+	MOV	PORTF,	W0
 	NOP
-	;LSR	W0,	#2,	W0
-	AND	#0X0F,	W0
+	LSR	W0,	#2,	W0
+	AND	#0X0F,	W0             
 	
-	MOV     #0, W1
-	CP      W0, W1            
-	BRA	Z,      FIN               
-	
-	MOV	#1,	W2
+	MOV	#0,	W2
 	CP	W0,	W2	    ;IMPRIME H EN PANTALLA
 	BRA	Z,	MUESTRA_H
 	
-	MOV	#2,	W2		    ;IMPRIME O EN PANTALLA
+	MOV	#1,	W2		    ;IMPRIME O EN PANTALLA
 	CP	W0,	W2
 	BRA	Z,	MUESTRA_O
 	
-	MOV	#4,	W2		    ;IMPRIME L EN PANTALLA
+	MOV	#2,	W2		    ;IMPRIME L EN PANTALLA
 	CP	W0,	W2
 	BRA	Z,	MUESTRA_L
 	
-	MOV	#8,	W2		    ;IMPRIME A EN PANTALLA
+	MOV	#3,	W2		    ;IMPRIME A EN PANTALLA
 	CP	W0,	W2
 	BRA	Z,	MUESTRA_A
 	
@@ -162,17 +158,17 @@ MUESTRA_H:
 	GOTO CICLO
 	
 MUESTRA_O:
-	MOV	#0X38,	W0
+	MOV	#0x3F,	W0
 	MOV	W0,	PORTB
 	GOTO CICLO
 	
 MUESTRA_L:
-	MOV	#0X77,	W0
+	MOV	#0x38,	W0
 	MOV	W0,	PORTB
 	GOTO CICLO
 	
 MUESTRA_A:
-	MOV	#0X76,	W0
+	MOV	#0x77,	W0
 	MOV	W0,	PORTB
 	GOTO CICLO
 	
